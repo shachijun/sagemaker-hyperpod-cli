@@ -1,0 +1,48 @@
+gpu-operator:
+  enabled: true
+  operator:
+    image: "mirror-gpu-operator"
+    version: "v25.3.4"
+    initContainer:
+      enabled: false
+  mig:
+    strategy: mixed
+  driver:
+    enabled: false
+  manager:
+    enabled: false
+  toolkit:
+    image: "container-toolkit"
+    version: "v1.13.1-centos7"
+  devicePlugin:
+    enabled: true
+    image: "mirror-k8s-device-plugin"
+    version: "v0.17.4"
+  dcgm:
+    enabled: false
+  dcgmExporter:
+    enabled: false
+  gfd:
+    image: "mirror-k8s-device-plugin"
+    version: "v0.17.4"
+  migManager:
+    image: "k8s-mig-manager"
+    version: "v0.12.3-ubuntu20.04"
+    config:
+      create: true
+      name: "default-mig-config"
+    env:                        # Added env section
+      - name: WITH_REBOOT
+        value: "true"
+  validator:
+    image: "gpu-operator-validator"
+    version: "v25.3.4"
+  vgpuDeviceManager:
+    enabled: false
+  vfioManager:
+    enabled: false
+  sandboxDevicePlugin:
+    enabled: false
+  daemonsets:
+    tolerations:
+      - operator: Exists

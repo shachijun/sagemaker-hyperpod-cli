@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "default-mig-config"
+  namespace: {{ .Release.Namespace }}
+data:
+  config.yaml: |
+{{- $content := $.Files.Get "config/default-mig-config.yaml" }}
+{{ $content | indent 4 }}
